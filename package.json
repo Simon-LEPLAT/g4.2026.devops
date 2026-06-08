@@ -1,28 +1,34 @@
 {
   "name": "tp-docker-ing1",
   "version": "1.0.0",
-  "description": "API Node/TypeScript minimale pour le TP DevOps ING1 — conteneurisation et optimisation Docker",
+  "description": "API Node/TypeScript minimale pour le TP DevOps ING1 — conteneurisation, Compose et CI/CD",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.0",
+    "@types/pg": "^8.11.0",
+    "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "eslint": "^8.57.0",
     "nodemon": "^3.1.0",
+    "supertest": "^6.3.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.0"
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
   }
 }

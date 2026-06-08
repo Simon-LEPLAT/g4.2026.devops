@@ -1,0 +1,47 @@
+# TP1 — Stack complète : nginx (reverse proxy) → api (Node) → db (Postgres)
+# Fichier À TROUS : complète les TODO pour que la stack démarre.
+# La solution complète est dans solutions/docker-compose.yml.
+
+services:
+  nginx:
+    image: nginx:alpine
+    # TODO: exposer le port 80 de nginx sur le port 80 de l'hôte
+    ports:
+      - "____:____"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+
+  api:
+    build: .
+    environment:
+      NODE_ENV: production
+      # TODO: pointer vers la base (hôte = nom du service db)
+      DATABASE_URL: ____
+    depends_on:
+      db:
+        # TODO: attendre que la DB soit réellement prête (healthcheck)
+        condition: ____
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+    volumes:
+      # TODO: persister les données sur un volume nommé
+      - ____:/var/lib/postgresql/data
+      # init.sql crée la table students au 1er démarrage
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    # TODO: déclarer un healthcheck avec pg_isready
+    # healthcheck:
+    #   test: [...]
+    #   interval: 5s
+    #   timeout: 3s
+    #   retries: 5
+
+# TODO: déclarer le volume nommé utilisé par db
+volumes:
+  ____:
